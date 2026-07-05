@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: books-rating-api
+
+  main:
+    headless: false
+
+  datasource:
+    url: jdbc:sqlite:bookrating.db
+    driver-class-name: org.sqlite.JDBC
+
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: none          # schema is created by schema.sql
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+  sql:
+    init:
+      mode: always
+
+  cache:
+    type: caffeine
+    cache-names: gutendexSearch, gutendexBook
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=10m
+
+gutendex:
+  base-url: https://gutendex.com
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+    try-it-out-enabled: true
+
+app:
+  open-browser: true          # auto open Swagger UI in the default browser on startup
+  swagger-path: /swagger-ui.html
